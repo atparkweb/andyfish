@@ -1,4 +1,4 @@
-defmodule Andyfish.Umbrella.MixProject do
+defmodule AndyFish.Umbrella.MixProject do
   use Mix.Project
 
   def project do

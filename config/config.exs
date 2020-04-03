@@ -10,19 +10,19 @@
 use Mix.Config
 
 # Configure Mix tasks and generators
-config :andyfish,
-  ecto_repos: [Andyfish.Repo]
+config :andy_fish,
+  ecto_repos: [AndyFish.Repo]
 
-config :andyfish_web,
-  ecto_repos: [Andyfish.Repo],
-  generators: [context_app: :andyfish]
+config :andy_fish_web,
+  ecto_repos: [AndyFish.Repo],
+  generators: [context_app: :andy_fish]
 
 # Configures the endpoint
-config :andyfish_web, AndyfishWeb.Endpoint,
+config :andy_fish_web, AndyFishWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "mYThblURYkk2gLVOMjyIR52TiW6cc982JhLHtLRDaDMGrmowEx39qrwzeTjdXenD",
-  render_errors: [view: AndyfishWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: AndyfishWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: AndyFishWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: AndyFishWeb.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

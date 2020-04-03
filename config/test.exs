@@ -1,16 +1,16 @@
 use Mix.Config
 
 # Configure your database
-config :andyfish, Andyfish.Repo,
+config :andy_fish, AndyFish.Repo,
   username: "postgres",
   password: "postgres",
-  database: "andyfish_test",
+  database: "andy_fish_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :andyfish_web, AndyfishWeb.Endpoint,
+config :andy_fish_web, AndyFishWeb.Endpoint,
   http: [port: 4002],
   server: false
 
