@@ -4,7 +4,7 @@ use Mix.Config
 config :andy_fish, AndyFish.Repo,
   username: "postgres",
   password: "postgres",
-  database: "andy_fish_test",
+  database: "andyfish_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
