@@ -36,6 +36,24 @@ defmodule AndyFish.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+  
+  def get_user_by(params) do
+    Repo.get_by(User, params)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+
+  ## Examples
+
+      iex> change_user(user)
+      %Ecto.Changeset{source: %User{}}
+
+  """
+  def change_user(%User{} = user) do
+    User.changeset(user, %{})
+  end
+  
 
   @doc """
   Creates a user.
@@ -55,50 +73,27 @@ defmodule AndyFish.Accounts do
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a user.
-
-  ## Examples
-
-      iex> update_user(user, %{field: new_value})
-      {:ok, %User{}}
-
-      iex> update_user(user, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_user(%User{} = user, attrs) do
-    user
-    |> User.changeset(attrs)
-    |> Repo.update()
+  def change_registration(%User{} = user, params) do
+    User.registration_changeset(user, params)
   end
-
-  @doc """
-  Deletes a user.
-
-  ## Examples
-
-      iex> delete_user(user)
-      {:ok, %User{}}
-
-      iex> delete_user(user)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_user(%User{} = user) do
-    Repo.delete(user)
+  
+  def register_user(attrs \\ %{}) do
+    %User{}
+    |> User.registration_changeset(attrs)
+    |> Repo.insert()
   end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking user changes.
-
-  ## Examples
-
-      iex> change_user(user)
-      %Ecto.Changeset{source: %User{}}
-
-  """
-  def change_user(%User{} = user) do
-    User.changeset(user, %{})
+  
+  def authenticate_by_email_password(email, given_pass) do
+    user = get_user_by(email: email)
+    
+    cond do
+      user && Pbkdf2.verify_pass(given_pass, user.password_hash) ->
+	{:ok, user}
+      user ->
+        {:error, :unauthorized}
+      true ->
+        Pbkdf2.no_user_verify()
+        {:error, :not_found}
+    end
   end
 end
