@@ -62,5 +62,13 @@ defmodule AndyFish.AccountsTest do
       assert {:ok, auth_user} = Accounts.authenticate_by_email_password(user.email, @pass)
       assert auth_user.id == user.id
     end
+    
+    test "returns unauthorized error with invalid password", %{user: user} do
+      assert {:error, :unauthorized} = Accounts.authenticate_by_email_password(user.email, "wrongpass")
+    end
+    
+    test "returns not found error with no matching user for email" do
+      assert {:error, :not_found} = Accounts.authenticate_by_email_password("bad@example.com", @pass)
+    end
   end
 end
