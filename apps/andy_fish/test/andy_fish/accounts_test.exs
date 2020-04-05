@@ -60,7 +60,7 @@ defmodule AndyFish.AccountsTest do
 
     test "returns user with correct password", %{user: user} do
       assert {:ok, auth_user} = Accounts.authenticate_by_email_password(user.email, @pass)
-      # assert auth_user.id == user.id
+      assert auth_user.id == user.id
     end
   end
 end
