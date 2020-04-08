@@ -37,6 +37,10 @@ defmodule AndyFish.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
   
+  def get_user(id) do
+    Repo.get(User, id)
+  end
+  
   def get_user_by(params) do
     Repo.get_by(User, params)
   end
